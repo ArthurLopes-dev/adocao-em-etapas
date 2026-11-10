@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adote no Abrigo Rabo Abanando</title>
+  <meta name="description" content="Formulário de adoção em etapas — projeto de portfólio com abrigo e cidade fictícios.">
+  <link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+  <header class="topo">
+    <span class="marca">🐾 Abrigo Rabo Abanando</span>
+    <span class="cidade">Vale Sereno</span>
+  </header>
+
+  <main class="palco">
+    <section class="intro">
+      <h1>Encontre um amigo para a vida toda</h1>
+      <p>Quatro etapas rápidas. A equipe do abrigo lê cada pedido e responde por e-mail em até 3 dias úteis.</p>
+    </section>
+
+    <form id="form" class="cartao" novalidate>
+      <ol class="progresso" aria-label="Etapas">
+        <li class="ativo">Você</li><li>Sua casa</li><li>O pet</li><li>Revisão</li>
+      </ol>
+      <div class="barra"><span id="barra"></span></div>
+
+      <!-- campo-isca: invisível para pessoas -->
+      <label class="isca" aria-hidden="true">Site <input name="site" tabindex="-1" autocomplete="off"></label>
+
+      <fieldset class="etapa ativa" data-etapa="0">
+        <legend>Sobre você</legend>
+        <label>Nome completo <input name="nome" autocomplete="name" required minlength="3"></label>
+        <label>E-mail <input name="email" type="email" autocomplete="email" required></label>
+        <label>Telefone <small>(opcional)</small> <input name="telefone" inputmode="tel" placeholder="(00) 90000-0000"></label>
+        <label>Bairro
+          <select name="bairro" required>
+            <option value="">Escolha…</option>
+            <option>Centro</option><option>Jardim das Garças</option><option>Alto do Ipê</option>
+            <option>Vila Aurora</option><option>Morro do Sabiá</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset class="etapa" data-etapa="1">
+        <legend>Sua casa</legend>
+        <div class="opcoes" role="radiogroup" aria-label="Tipo de moradia">
+          <label class="opcao"><input type="radio" name="moradia" value="casa" required><span>🏠 Casa</span></label>
+          <label class="opcao"><input type="radio" name="moradia" value="apartamento"><span>🏢 Apartamento</span></label>
+          <label class="opcao"><input type="radio" name="moradia" value="chacara"><span>🌳 Chácara</span></label>
+        </div>
+        <label class="check"><input type="checkbox" name="telado" value="sim"> Janelas e sacadas são teladas</label>
+        <label>Outros animais em casa <small>(opcional)</small> <input name="outros_pets" placeholder="ex.: uma gata de 4 anos"></label>
+        <label class="check"><input type="checkbox" name="todos_de_acordo" value="sim" required> Todos que moram comigo concordam com a adoção</label>
+      </fieldset>
+
+      <fieldset class="etapa" data-etapa="2">
+        <legend>O pet</legend>
+        <div id="pets" class="pets" role="radiogroup" aria-label="Escolha o pet"></div>
+        <label>Porte que combina com sua casa
+          <select name="porte" required>
+            <option value="">Escolha…</option>
+            <option value="pequeno">Pequeno</option><option value="medio">Médio</option>
+            <option value="grande">Grande</option><option value="tanto-faz">Tanto faz</option>
+          </select>
+        </label>
+        <label>Por que você quer adotar? <textarea name="motivo" rows="4" required minlength="20"></textarea></label>
+      </fieldset>
+
+      <fieldset class="etapa" data-etapa="3">
+        <legend>Revise e envie</legend>
+        <dl id="resumo" class="resumo"></dl>
+        <label class="check termo"><input type="checkbox" name="consentimento" value="sim" required>
+          <span>Autorizo o abrigo a usar estes dados <strong>só para analisar este pedido</strong> e falar comigo sobre ele.
+          Posso pedir a exclusão a qualquer momento.</span></label>
+      </fieldset>
+
+      <p id="aviso" class="aviso" role="alert" hidden></p>
+
+      <div class="acoes">
+        <button type="button" id="voltar" class="secundario" hidden>Voltar</button>
+        <button type="button" id="avancar">Continuar</button>
+      </div>
+    </form>
+
+    <section id="pronto" class="cartao pronto" hidden>
+      <div class="selo">✓</div>
+      <h2>Pedido recebido!</h2>
+      <p>Seu protocolo é <strong id="protocolo"></strong>. Guarde para acompanhar.</p>
+      <p id="modo-demo" class="demo" hidden>Modo demonstração: o pedido foi salvo só nesta máquina, nenhum dado saiu daqui.</p>
+    </section>
+  </main>
+
+  <footer class="rodape">Projeto de portfólio. Abrigo, cidade, bairros e pets são fictícios.</footer>
+  <script src="assets/app.js" defer></script>
+</body>
+</html>

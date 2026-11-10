@@ -1,0 +1,14 @@
+# segredos: só o .env.example vai para o repositório
+.env
+.env.*
+!.env.example
+
+# dados gerados em execução (pedidos de demonstração, limite de envios)
+dados/*
+!dados/.gitkeep
+
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

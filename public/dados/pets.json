@@ -1,0 +1,7 @@
+[
+  { "id": "caramelo", "nome": "Caramelo", "especie": "cão", "porte": "medio", "idade": "3 anos", "sobre": "Vira-lata de olhar pidão. Adora passeio e convive bem com crianças." },
+  { "id": "pipoca", "nome": "Pipoca", "especie": "gata", "porte": "pequeno", "idade": "1 ano", "sobre": "Curiosa e falante. Precisa de casa com janelas teladas." },
+  { "id": "trovao", "nome": "Trovão", "especie": "cão", "porte": "grande", "idade": "6 anos", "sobre": "Grandalhão calmo, faz amizade com todo mundo. Prefere casa com quintal." },
+  { "id": "jabuticaba", "nome": "Jabuticaba", "especie": "gata", "porte": "pequeno", "idade": "8 anos", "sobre": "Idosa tranquila, ideal para apartamento e rotina sossegada." },
+  { "id": "biscoito", "nome": "Biscoito", "especie": "cão", "porte": "pequeno", "idade": "2 anos", "sobre": "Pequeno e enérgico. Vai precisar de tempo para brincar todo dia." }
+]
