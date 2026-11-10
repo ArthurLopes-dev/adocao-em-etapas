@@ -1,10 +1,10 @@
 # Adoção em etapas · formulário → Pipefy
 
 Formulário de adoção de pets em quatro etapas que transforma cada pedido em um
-card no [Pipefy](https://www.pipefy.com/), pela API GraphQL. Sem framework e
-sem dependências: PHP 8 e JavaScript puro.
+card no [Pipefy](https://www.pipefy.com/), pela API GraphQL. PHP 8 sem framework; no navegador, anime.js e three.js
+empacotados no próprio projeto.
 
-> **Projeto de portfólio.** O "Abrigo Rabo Abanando", a cidade de Vale Sereno,
+> **Projeto de portfólio.** O "Abrigo Quintal do Vale", a cidade de Vale Sereno,
 > os bairros e os pets são fictícios.
 
 ## O que ele mostra
@@ -56,6 +56,28 @@ finalidade.
 **Por que o robô recebe "ok"?** Se a isca devolvesse erro, o robô aprenderia a
 deixar o campo vazio. Respondendo sucesso, ele vai embora achando que passou.
 
+## Camada visual (anime.js + three.js)
+
+O formulário funciona sozinho; a animação é uma camada por cima, em `frontend/`:
+
+- **Cena 3D** (three.js): patinhas de "massinha" modeladas no código, com
+  material matcap desenhado num canvas (sem luz, sem imagem para baixar). Uma
+  trilha de quatro pegadas mostra o progresso: cada etapa concluída pinta uma.
+- **Movimento** (anime.js v4): título palavra por palavra, contadores, troca de
+  etapa coreografada, mola nas escolhas, campo que sacode no erro e o "check"
+  desenhado no envio.
+- **Três caminhos funcionam**: normal; `prefers-reduced-motion` (nada se move e
+  nenhum loop roda, mas a trilha ainda muda de cor); e sem o JavaScript dos
+  efeitos (o CSS mostra tudo sozinho).
+
+As bibliotecas vão empacotadas em `public/assets/efeitos.js` (nada de CDN). Para
+refazer o pacote depois de mexer em `frontend/`:
+
+```bash
+npm install
+npm run build
+```
+
 ## Estrutura
 
 ```
@@ -77,4 +99,4 @@ Nenhum token está neste repositório. O `.env` está no `.gitignore` e o
 
 ## Licença
 
-MIT
+MIT. Inclui three.js e anime.js (ambos MIT); os avisos de licença ficam no fim dos pacotes.

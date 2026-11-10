@@ -1,7 +1,32 @@
 [
-  { "id": "caramelo", "nome": "Caramelo", "especie": "cão", "porte": "medio", "idade": "3 anos", "sobre": "Vira-lata de olhar pidão. Adora passeio e convive bem com crianças." },
-  { "id": "pipoca", "nome": "Pipoca", "especie": "gata", "porte": "pequeno", "idade": "1 ano", "sobre": "Curiosa e falante. Precisa de casa com janelas teladas." },
-  { "id": "trovao", "nome": "Trovão", "especie": "cão", "porte": "grande", "idade": "6 anos", "sobre": "Grandalhão calmo, faz amizade com todo mundo. Prefere casa com quintal." },
-  { "id": "jabuticaba", "nome": "Jabuticaba", "especie": "gata", "porte": "pequeno", "idade": "8 anos", "sobre": "Idosa tranquila, ideal para apartamento e rotina sossegada." },
-  { "id": "biscoito", "nome": "Biscoito", "especie": "cão", "porte": "pequeno", "idade": "2 anos", "sobre": "Pequeno e enérgico. Vai precisar de tempo para brincar todo dia." }
+  {
+    "id": "caramelo", "nome": "Caramelo", "especie": "cão", "porte": "medio", "idade": "3 anos",
+    "sobre": "Vira-lata de olhar pidão. Adora passeio e convive bem com crianças.",
+    "tracos": ["adora passeio", "bom com crianças"],
+    "visual": { "tipo": "cao", "pelo": "#d9964a", "orelha": "#b06f2c", "focinho": "#f3d9b4", "fundo": "#fbe9d2" }
+  },
+  {
+    "id": "pipoca", "nome": "Pipoca", "especie": "gata", "porte": "pequeno", "idade": "1 ano",
+    "sobre": "Curiosa e falante. Precisa de casa com janelas teladas.",
+    "tracos": ["curiosa", "precisa de tela"],
+    "visual": { "tipo": "gato", "pelo": "#f6f1e7", "mancha": "#e2a04a", "olho": "#6fae5a", "fundo": "#fdeccf" }
+  },
+  {
+    "id": "trovao", "nome": "Trovão", "especie": "cão", "porte": "grande", "idade": "6 anos",
+    "sobre": "Grandalhão calmo, faz amizade com todo mundo. Prefere casa com quintal.",
+    "tracos": ["calmo", "prefere quintal"],
+    "visual": { "tipo": "cao", "pelo": "#7b8089", "orelha": "#53575f", "focinho": "#c9ccd2", "fundo": "#e6e9ee" }
+  },
+  {
+    "id": "jabuticaba", "nome": "Jabuticaba", "especie": "gata", "porte": "pequeno", "idade": "8 anos",
+    "sobre": "Idosa tranquila, ideal para apartamento e rotina sossegada.",
+    "tracos": ["tranquila", "ideal para apê"],
+    "visual": { "tipo": "gato", "pelo": "#3a3440", "olho": "#f2c230", "traco": "#e6dfd6", "fundo": "#e9e2f0" }
+  },
+  {
+    "id": "biscoito", "nome": "Biscoito", "especie": "cão", "porte": "pequeno", "idade": "2 anos",
+    "sobre": "Pequeno e enérgico. Vai precisar de tempo para brincar todo dia.",
+    "tracos": ["enérgico", "ama brincar"],
+    "visual": { "tipo": "cao", "pelo": "#ecd3a8", "orelha": "#c79a5e", "focinho": "#fbf1dd", "mancha": "#c79a5e", "fundo": "#f7ecd9" }
+  }
 ]

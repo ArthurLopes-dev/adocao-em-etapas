@@ -1,0 +1,14 @@
+{
+  "name": "adocao-em-etapas",
+  "private": true,
+  "type": "module",
+  "description": "Camada visual (anime.js + three.js) do formulário de adoção. O PHP não depende disto.",
+  "scripts": {
+    "build": "esbuild frontend/efeitos.js --bundle --minify --format=esm --target=es2020 --legal-comments=eof --outfile=public/assets/efeitos.js"
+  },
+  "devDependencies": {
+    "animejs": "4.5.0",
+    "esbuild": "0.28.2",
+    "three": "0.186.0"
+  }
+}

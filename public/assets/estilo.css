@@ -17,30 +17,51 @@
   }
 }
 * { box-sizing: border-box; }
+html { background: var(--fundo); }
 body {
-  margin: 0; background: var(--fundo); color: var(--tinta);
+  margin: 0; color: var(--tinta); background: transparent;
   font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  min-height: 100vh; display: flex; flex-direction: column;
+  min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
 }
-.topo { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; }
-.marca { font-weight: 700; }
-.cidade { color: var(--suave); font-size: 14px; }
-.palco { flex: 1; width: min(640px, 100% - 32px); margin: 0 auto; padding-bottom: 48px; }
-.intro h1 { font-size: clamp(28px, 6vw, 40px); line-height: 1.1; margin: 16px 0 8px; letter-spacing: -0.02em; }
-.intro p { color: var(--suave); margin: 0 0 24px; }
 
-.cartao { background: var(--cartao); border: 1px solid var(--linha); border-radius: var(--raio); padding: 24px; box-shadow: 0 20px 50px -30px rgba(80, 40, 10, .35); }
+/* cena 3D atrás de tudo; sem WebGL ela simplesmente não aparece */
+.cena { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block; }
+.topo, .palco, .rodape { position: relative; z-index: 1; }
+
+.topo { display: flex; justify-content: space-between; align-items: center; padding: 18px clamp(16px, 4vw, 40px); }
+.marca { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; }
+.pata { width: 26px; height: 26px; }
+.pata-traco { fill: color-mix(in srgb, var(--cor) 18%, transparent); stroke: var(--cor); stroke-width: 1.6; stroke-linejoin: round; }
+.cidade { color: var(--suave); font-size: 14px; }
+
+.palco {
+  flex: 1; width: min(1160px, 100% - 32px); margin: 0 auto; padding: 24px 0 56px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); gap: clamp(24px, 5vw, 72px); align-items: start;
+}
+.intro { padding-top: clamp(8px, 6vh, 72px); }
+.selo-topo { display: inline-block; margin: 0 0 14px; padding: 5px 12px; border-radius: 99px; font-size: 13px; font-weight: 600;
+  color: var(--cor-escura); background: color-mix(in srgb, var(--cor) 12%, var(--cartao)); border: 1px solid color-mix(in srgb, var(--cor) 25%, transparent); }
+.titulo { font-size: clamp(34px, 5.6vw, 64px); line-height: 1.02; margin: 0 0 16px; letter-spacing: -0.03em; }
+.titulo .word { display: inline-block; } /* splitText: cada palavra anima sozinha */
+.sub { color: var(--suave); font-size: 18px; max-width: 30em; margin: 0 0 28px; }
+.fatos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 520px; }
+.fatos li { background: color-mix(in srgb, var(--cartao) 82%, transparent); backdrop-filter: blur(6px); border: 1px solid var(--linha); border-radius: 14px; padding: 12px 14px; }
+.fatos strong { display: block; font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--cor-escura); }
+.fatos span { color: var(--suave); font-size: 13px; }
+
+.cartao { background: var(--cartao); border: 1px solid var(--linha); border-radius: var(--raio); padding: 24px; box-shadow: 0 30px 70px -40px rgba(80, 40, 10, .45); }
 
 .progresso { display: grid; grid-template-columns: repeat(4, 1fr); list-style: none; padding: 0; margin: 0 0 10px; font-size: 13px; color: var(--suave); counter-reset: e; }
-.progresso li { counter-increment: e; }
+.progresso li { counter-increment: e; transition: color .3s; }
 .progresso li::before { content: counter(e) ". "; }
 .progresso li.ativo, .progresso li.feito { color: var(--tinta); font-weight: 600; }
 .barra { height: 6px; background: var(--linha); border-radius: 99px; overflow: hidden; margin-bottom: 20px; }
-.barra span { display: block; height: 100%; width: 25%; background: var(--cor); border-radius: inherit; transition: width .45s cubic-bezier(.2, .8, .2, 1); }
+.barra span { display: block; height: 100%; width: 25%; background: linear-gradient(90deg, var(--cor), #f2a65a); border-radius: inherit; transition: width .55s cubic-bezier(.2, .8, .2, 1); }
 
-.etapa { border: 0; padding: 0; margin: 0; display: none; }
+.etapa { border: 0; padding: 0; margin: 0; display: none; min-width: 0; }
 .etapa.ativa { display: grid; gap: 14px; animation: entra .4s cubic-bezier(.2, .8, .2, 1); }
 .etapa.volta { animation-name: entraVolta; }
+.efeitos .etapa.ativa { animation: none; } /* com anime.js, a troca de etapa é coreografada no JS */
 @keyframes entra { from { opacity: 0; transform: translateX(24px); } }
 @keyframes entraVolta { from { opacity: 0; transform: translateX(-24px); } }
 legend { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
@@ -61,20 +82,33 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--c
 .termo { background: color-mix(in srgb, var(--cor) 8%, transparent); padding: 14px; border-radius: 12px; }
 
 .opcoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.opcao input, .pet input { position: absolute; opacity: 0; pointer-events: none; }
+/* rádio escondido, mas ainda focável pelo teclado; position: relative no
+   cartão para o input não se medir pela página e vazar para a direita */
+.opcao, .pet { position: relative; }
+.opcao input, .pet input { position: absolute; inset: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .opcao span, .pet .ficha {
   display: block; border: 1.5px solid var(--linha); border-radius: 14px; padding: 14px 10px;
-  text-align: center; cursor: pointer; transition: border-color .2s, transform .2s, background .2s;
+  text-align: center; cursor: pointer; transition: border-color .2s, background .2s, box-shadow .2s;
 }
-.opcao input:checked + span, .pet input:checked + .ficha { border-color: var(--cor); background: color-mix(in srgb, var(--cor) 10%, transparent); transform: translateY(-2px); }
+.opcao span:hover, .pet .ficha:hover { border-color: color-mix(in srgb, var(--cor) 55%, var(--linha)); }
+.opcao input:checked + span, .pet input:checked + .ficha { border-color: var(--cor); background: color-mix(in srgb, var(--cor) 10%, transparent); box-shadow: 0 10px 24px -16px var(--cor); }
 .opcao input:focus-visible + span, .pet input:focus-visible + .ficha { box-shadow: 0 0 0 4px color-mix(in srgb, var(--cor) 25%, transparent); }
 
-.pets { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+/* pets: retrato desenhado em SVG, nome, características em etiquetas */
+.pets { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
 .pet { font-weight: 400; }
-.pet .ficha { text-align: left; }
+.pet .ficha { height: 100%; padding: 14px 10px 12px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.retrato { width: 74px; height: 74px; display: block; margin-bottom: 6px; border-radius: 50%; transition: transform .25s cubic-bezier(.2, .8, .2, 1); }
+.pet .ficha:hover .retrato { transform: translateY(-3px) rotate(-4deg); }
 .pet strong { display: block; font-size: 16px; }
 .pet .meta { color: var(--suave); font-size: 13px; }
-.pet p { margin: 6px 0 0; font-size: 13px; }
+.tracos { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 8px; }
+.tracos span { font-size: 11px; line-height: 1.5; padding: 1px 8px; border-radius: 99px; white-space: nowrap;
+  color: var(--cor-escura); background: color-mix(in srgb, var(--cor) 11%, transparent); }
+.pet input:checked + .ficha::after { content: "✓"; position: absolute; top: 8px; right: 8px; width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--cor); color: #fff; font-size: 13px; font-weight: 700; }
+.pet-detalhe { margin: 0; padding: 10px 14px; border-radius: 12px; font-size: 14px; font-weight: 400;
+  background: color-mix(in srgb, var(--cor) 8%, transparent); border-left: 3px solid var(--cor); }
 
 .resumo { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; font-size: 15px; }
 .resumo dt { color: var(--suave); }
@@ -84,25 +118,39 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--c
 .acoes { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
 button {
   font: inherit; font-weight: 700; border: 0; border-radius: 99px; padding: 12px 26px; cursor: pointer;
-  background: var(--cor); color: #fff; margin-left: auto; transition: background .2s, transform .1s;
+  background: var(--cor); color: #fff; margin-left: auto; transition: background .2s;
 }
 button:hover { background: var(--cor-escura); }
-button:active { transform: scale(.97); }
 button:disabled { opacity: .6; cursor: wait; }
 button.secundario { background: transparent; color: var(--tinta); border: 1.5px solid var(--linha); margin-left: 0; }
 
-.pronto { text-align: center; animation: entra .5s cubic-bezier(.2, .8, .2, 1); }
-.selo { width: 64px; height: 64px; margin: 4px auto 8px; border-radius: 50%; background: var(--ok); color: #fff; font-size: 32px; display: grid; place-items: center; animation: pulo .6s cubic-bezier(.3, 1.6, .5, 1); }
-@keyframes pulo { from { transform: scale(0); } }
+.pronto { text-align: center; }
+.selo { width: 72px; height: 72px; margin: 4px auto 8px; display: block; overflow: visible; }
+.selo-fundo { fill: var(--ok); transform-box: fill-box; transform-origin: 50% 50%; }
+.selo-check { fill: none; stroke: #fff; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
 .demo { color: var(--suave); font-size: 14px; }
 
 .isca { position: absolute; left: -9999px; }
 .rodape { text-align: center; color: var(--suave); font-size: 13px; padding: 20px 16px 28px; }
 
+/* Estado inicial das entradas, só quando os efeitos vão assumir (liga.js).
+   Rede de segurança: se o JS não animar, a animação CSS mostra tudo aos 2,5 s. */
+.efeitos [data-hide] { opacity: 0; animation: socorro .01s 2.5s forwards; }
+@keyframes socorro { to { opacity: 1; } }
+
+@media (max-width: 900px) {
+  .palco { grid-template-columns: minmax(0, 1fr); padding-top: 8px; }
+  .intro { padding-top: 0; }
+  .sub { margin-bottom: 18px; }
+}
 @media (max-width: 520px) {
   .opcoes { grid-template-columns: 1fr; }
   .progresso { font-size: 11px; }
   .cartao { padding: 18px; }
+  .fatos { gap: 8px; }
+  .fatos li { padding: 10px; }
+  .fatos strong { font-size: 21px; }
+  .fatos span { font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before { animation: none !important; transition: none !important; }

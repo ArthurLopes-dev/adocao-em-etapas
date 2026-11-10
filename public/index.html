@@ -3,92 +3,119 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Adote no Abrigo Rabo Abanando</title>
+  <title>Adote no Abrigo Quintal do Vale</title>
   <meta name="description" content="Formulário de adoção em etapas — projeto de portfólio com abrigo e cidade fictícios.">
   <link rel="stylesheet" href="assets/estilo.css">
+  <!-- liga.js marca o <html> antes da primeira pintura; se os efeitos não carregarem, nada fica escondido -->
+  <script src="assets/liga.js"></script>
+  <script type="module" src="assets/efeitos.js"></script>
 </head>
 <body>
-  <header class="topo">
-    <span class="marca">🐾 Abrigo Rabo Abanando</span>
+  <!-- cena 3D (patinhas): decorativa, fica atrás de tudo -->
+  <canvas id="cena" class="cena" aria-hidden="true"></canvas>
+
+  <header class="topo" data-hide>
+    <span class="marca">
+      <svg class="pata" viewBox="0 0 32 32" aria-hidden="true">
+        <path class="pata-traco" d="M16 27c-4.5 0-8-2.4-8-5.6 0-3.4 3.6-6.4 8-6.4s8 3 8 6.4c0 3.2-3.5 5.6-8 5.6z"/>
+        <path class="pata-traco" d="M9.5 12.5c-1.6 0-2.9-1.7-2.9-3.8S7.9 5 9.5 5s2.9 1.7 2.9 3.7-1.3 3.8-2.9 3.8z"/>
+        <path class="pata-traco" d="M22.5 12.5c-1.6 0-2.9-1.7-2.9-3.8S20.9 5 22.5 5s2.9 1.7 2.9 3.7-1.3 3.8-2.9 3.8z"/>
+        <path class="pata-traco" d="M4.6 18.4c-1.4 0-2.6-1.5-2.6-3.3s1.2-3.2 2.6-3.2 2.6 1.4 2.6 3.2-1.2 3.3-2.6 3.3z"/>
+        <path class="pata-traco" d="M27.4 18.4c-1.4 0-2.6-1.5-2.6-3.3s1.2-3.2 2.6-3.2 2.6 1.4 2.6 3.2-1.2 3.3-2.6 3.3z"/>
+      </svg>
+      Abrigo Quintal do Vale
+    </span>
     <span class="cidade">Vale Sereno</span>
   </header>
 
   <main class="palco">
     <section class="intro">
-      <h1>Encontre um amigo para a vida toda</h1>
-      <p>Quatro etapas rápidas. A equipe do abrigo lê cada pedido e responde por e-mail em até 3 dias úteis.</p>
+      <p class="selo-topo" data-hide>Adoção responsável · desde 2014</p>
+      <h1 class="titulo" data-hide>Encontre um amigo para a vida toda</h1>
+      <p class="sub" data-hide>Quatro etapas rápidas. A equipe do abrigo lê cada pedido e responde por e-mail em até 3 dias úteis.</p>
+      <ul class="fatos">
+        <li data-hide><strong data-contar="5">5</strong><span>pets esperando um lar</span></li>
+        <li data-hide><strong data-contar="3">3</strong><span>dias úteis para a resposta</span></li>
+        <li data-hide><strong data-contar="412">412</strong><span>adoções desde a fundação</span></li>
+      </ul>
     </section>
 
-    <form id="form" class="cartao" novalidate>
-      <ol class="progresso" aria-label="Etapas">
-        <li class="ativo">Você</li><li>Sua casa</li><li>O pet</li><li>Revisão</li>
-      </ol>
-      <div class="barra"><span id="barra"></span></div>
+    <div class="coluna-form" data-hide>
+      <form id="form" class="cartao" novalidate>
+        <ol class="progresso" aria-label="Etapas">
+          <li class="ativo">Você</li><li>Sua casa</li><li>O pet</li><li>Revisão</li>
+        </ol>
+        <div class="barra"><span id="barra"></span></div>
 
-      <!-- campo-isca: invisível para pessoas -->
-      <label class="isca" aria-hidden="true">Site <input name="site" tabindex="-1" autocomplete="off"></label>
+        <!-- campo-isca: invisível para pessoas -->
+        <label class="isca" aria-hidden="true">Site <input name="site" tabindex="-1" autocomplete="off"></label>
 
-      <fieldset class="etapa ativa" data-etapa="0">
-        <legend>Sobre você</legend>
-        <label>Nome completo <input name="nome" autocomplete="name" required minlength="3"></label>
-        <label>E-mail <input name="email" type="email" autocomplete="email" required></label>
-        <label>Telefone <small>(opcional)</small> <input name="telefone" inputmode="tel" placeholder="(00) 90000-0000"></label>
-        <label>Bairro
-          <select name="bairro" required>
-            <option value="">Escolha…</option>
-            <option>Centro</option><option>Jardim das Garças</option><option>Alto do Ipê</option>
-            <option>Vila Aurora</option><option>Morro do Sabiá</option>
-          </select>
-        </label>
-      </fieldset>
+        <fieldset class="etapa ativa" data-etapa="0">
+          <legend>Sobre você</legend>
+          <label>Nome completo <input name="nome" autocomplete="name" required minlength="3"></label>
+          <label>E-mail <input name="email" type="email" autocomplete="email" required></label>
+          <label>Telefone <small>(opcional)</small> <input name="telefone" inputmode="tel" placeholder="(00) 90000-0000"></label>
+          <label>Bairro
+            <select name="bairro" required>
+              <option value="">Escolha…</option>
+              <option>Centro</option><option>Jardim das Garças</option><option>Alto do Ipê</option>
+              <option>Vila Aurora</option><option>Morro do Sabiá</option>
+            </select>
+          </label>
+        </fieldset>
 
-      <fieldset class="etapa" data-etapa="1">
-        <legend>Sua casa</legend>
-        <div class="opcoes" role="radiogroup" aria-label="Tipo de moradia">
-          <label class="opcao"><input type="radio" name="moradia" value="casa" required><span>🏠 Casa</span></label>
-          <label class="opcao"><input type="radio" name="moradia" value="apartamento"><span>🏢 Apartamento</span></label>
-          <label class="opcao"><input type="radio" name="moradia" value="chacara"><span>🌳 Chácara</span></label>
+        <fieldset class="etapa" data-etapa="1">
+          <legend>Sua casa</legend>
+          <div class="opcoes" role="radiogroup" aria-label="Tipo de moradia">
+            <label class="opcao"><input type="radio" name="moradia" value="casa" required><span>🏠 Casa</span></label>
+            <label class="opcao"><input type="radio" name="moradia" value="apartamento"><span>🏢 Apartamento</span></label>
+            <label class="opcao"><input type="radio" name="moradia" value="chacara"><span>🌳 Chácara</span></label>
+          </div>
+          <label class="check"><input type="checkbox" name="telado" value="sim"> Janelas e sacadas são teladas</label>
+          <label>Outros animais em casa <small>(opcional)</small> <input name="outros_pets" placeholder="ex.: uma gata de 4 anos"></label>
+          <label class="check"><input type="checkbox" name="todos_de_acordo" value="sim" required> Todos que moram comigo concordam com a adoção</label>
+        </fieldset>
+
+        <fieldset class="etapa" data-etapa="2">
+          <legend>O pet</legend>
+          <div id="pets" class="pets" role="radiogroup" aria-label="Escolha o pet"></div>
+          <p id="pet-detalhe" class="pet-detalhe" aria-live="polite" hidden></p>
+          <label>Porte que combina com sua casa
+            <select name="porte" required>
+              <option value="">Escolha…</option>
+              <option value="pequeno">Pequeno</option><option value="medio">Médio</option>
+              <option value="grande">Grande</option><option value="tanto-faz">Tanto faz</option>
+            </select>
+          </label>
+          <label>Por que você quer adotar? <textarea name="motivo" rows="4" required minlength="20"></textarea></label>
+        </fieldset>
+
+        <fieldset class="etapa" data-etapa="3">
+          <legend>Revise e envie</legend>
+          <dl id="resumo" class="resumo"></dl>
+          <label class="check termo"><input type="checkbox" name="consentimento" value="sim" required>
+            <span>Autorizo o abrigo a usar estes dados <strong>só para analisar este pedido</strong> e falar comigo sobre ele.
+            Posso pedir a exclusão a qualquer momento.</span></label>
+        </fieldset>
+
+        <p id="aviso" class="aviso" role="alert" hidden></p>
+
+        <div class="acoes">
+          <button type="button" id="voltar" class="secundario" hidden>Voltar</button>
+          <button type="button" id="avancar">Continuar</button>
         </div>
-        <label class="check"><input type="checkbox" name="telado" value="sim"> Janelas e sacadas são teladas</label>
-        <label>Outros animais em casa <small>(opcional)</small> <input name="outros_pets" placeholder="ex.: uma gata de 4 anos"></label>
-        <label class="check"><input type="checkbox" name="todos_de_acordo" value="sim" required> Todos que moram comigo concordam com a adoção</label>
-      </fieldset>
+      </form>
 
-      <fieldset class="etapa" data-etapa="2">
-        <legend>O pet</legend>
-        <div id="pets" class="pets" role="radiogroup" aria-label="Escolha o pet"></div>
-        <label>Porte que combina com sua casa
-          <select name="porte" required>
-            <option value="">Escolha…</option>
-            <option value="pequeno">Pequeno</option><option value="medio">Médio</option>
-            <option value="grande">Grande</option><option value="tanto-faz">Tanto faz</option>
-          </select>
-        </label>
-        <label>Por que você quer adotar? <textarea name="motivo" rows="4" required minlength="20"></textarea></label>
-      </fieldset>
-
-      <fieldset class="etapa" data-etapa="3">
-        <legend>Revise e envie</legend>
-        <dl id="resumo" class="resumo"></dl>
-        <label class="check termo"><input type="checkbox" name="consentimento" value="sim" required>
-          <span>Autorizo o abrigo a usar estes dados <strong>só para analisar este pedido</strong> e falar comigo sobre ele.
-          Posso pedir a exclusão a qualquer momento.</span></label>
-      </fieldset>
-
-      <p id="aviso" class="aviso" role="alert" hidden></p>
-
-      <div class="acoes">
-        <button type="button" id="voltar" class="secundario" hidden>Voltar</button>
-        <button type="button" id="avancar">Continuar</button>
-      </div>
-    </form>
-
-    <section id="pronto" class="cartao pronto" hidden>
-      <div class="selo">✓</div>
-      <h2>Pedido recebido!</h2>
-      <p>Seu protocolo é <strong id="protocolo"></strong>. Guarde para acompanhar.</p>
-      <p id="modo-demo" class="demo" hidden>Modo demonstração: o pedido foi salvo só nesta máquina, nenhum dado saiu daqui.</p>
-    </section>
+      <section id="pronto" class="cartao pronto" hidden>
+        <svg class="selo" viewBox="0 0 64 64" aria-hidden="true">
+          <circle class="selo-fundo" cx="32" cy="32" r="30"/>
+          <path class="selo-check" d="M19 33.5l8.5 8.5L45.5 24"/>
+        </svg>
+        <h2>Pedido recebido!</h2>
+        <p>Seu protocolo é <strong id="protocolo"></strong>. Guarde para acompanhar.</p>
+        <p id="modo-demo" class="demo" hidden>Modo demonstração: o pedido foi salvo só nesta máquina, nenhum dado saiu daqui.</p>
+      </section>
+    </div>
   </main>
 
   <footer class="rodape">Projeto de portfólio. Abrigo, cidade, bairros e pets são fictícios.</footer>
